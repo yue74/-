@@ -3,12 +3,13 @@ using namespace std;
 class slution{
 	int maxdepth;
 	void dfs(Treenode* root, int depth) {
-		if (depth > maxdepth) {
-			maxdepth = depth;
-		}
 		if (root) {
-			dfs(root->left, depth + 1);
-			dfs(root->right, depth + 1);
+			depth++;
+			if (depth > maxdepth) {
+				maxdepth = depth;
+			}
+			dfs(root->left, depth);
+			dfs(root->right, depth);
 		}
 	}
 public:
