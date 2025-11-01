@@ -1,0 +1,9 @@
+int maxdepth(Treenode*root){
+  if(root == NULL){
+    return 0;
+  }
+  int maxleft = maxdepth(root->left);
+  int maxright = maxdepth(root->right);
+  return 1+max(maxleft,maxright);
+}
+  
