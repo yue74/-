@@ -7,7 +7,7 @@ private:
     int sum;
     void sumRoot(TreeNode* root, int pre) {
         if (!root->left && !root->right) {
-            sum += pre * 2 + root->val;
+            sum += pre * 2 + root->val;//二进制数的位扩展原理
             return;
         }
         if (root->left) {
@@ -32,4 +32,5 @@ int main(){
 
 
 	return 0;
+
 }
