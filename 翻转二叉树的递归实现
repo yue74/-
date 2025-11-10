@@ -1,0 +1,26 @@
+// 二叉树节点定义
+struct TreeNode {
+    int val;
+    TreeNode *left;
+    TreeNode *right;
+    TreeNode(int x, TreeNode *left = nullptr, TreeNode *right = nullptr) : val(x), left(left), right(right) {}
+};
+
+class Solution {
+public:
+    TreeNode* invertTree(TreeNode* root) {
+        // 递归终止条件：空节点无需翻转
+        if (root == NULL) {
+            return NULL;
+        }
+        // 递归翻转左子树
+        TreeNode* l = invertTree(root->left);
+        // 递归翻转右子树
+        TreeNode* r = invertTree(root->right);
+        // 交换当前节点的左右子树
+        root->left = r;
+        root->right = l;
+        // 返回翻转后的根节点
+        return root;
+    }
+};
