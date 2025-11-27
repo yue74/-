@@ -1,0 +1,38 @@
+m x n 个房间组成
+每次只 向右 或 向下 移动一步
+注意：任何房间都可能对骑士的健康点数造成威胁，也可能增加骑士的健康点数，包括骑士进入的左上角房间以及公主被监禁的右下角房间
+
+输入：dungeon = [[-2,-3,3],[-5,-10,1],[10,30,-5]]
+输出：7
+解释：如果骑士遵循最佳路径：右 -> 右 -> 下 -> 下 ，则骑士的初始健康点数至少为 7 。
+
+int max(int a, int b) {
+    return a > b ? a : b;
+}
+int min(int a, int b) {
+    return a < b ? a : b;
+}
+
+int calculateMinimumHP(int** dungeon, int dungeonSize, int* dungeonColSize) {
+    int m = dungeonSize;
+    int n = dungeonColSize[0];
+    int dp[m][n];
+    // 处理右下角
+    dp[m-1][n-1] = max(1, 1 - dungeon[m-1][n-1]);
+    // 处理最下行
+    for (int j = n-2; j >= 0; j--) {
+        dp[m-1][j] = max(1, dp[m-1][j+1] - dungeon[m-1][j]);
+    }
+    // 处理最右列
+    for (int i = m-2; i >= 0; i--) {
+        dp[i][n-1] = max(1, dp[i+1][n-1] - dungeon[i][n-1]);
+    }
+    // 处理其他位置
+    for (int i = m-2; i >= 0; i--) {
+        for (int j = n-2; j >= 0; j--) {
+            int minNext = min(dp[i+1][j], dp[i][j+1]);
+            dp[i][j] = max(1, minNext - dungeon[i][j]);
+        }
+    }
+    return dp[0][0];
+}
